@@ -1,8 +1,21 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Dict, Any, Optional
 import uvicorn
+import os
+from dotenv import load_dotenv
+
+# Import Gemini service
+from services.gemini_service import (
+    generate_transcript,
+    generate_summary,
+    generate_blog_post,
+    extract_video_metadata
+)
+
+# Load environment variables
+load_dotenv()
 
 app = FastAPI(title="YouTube Productivity Tools API")
 
@@ -32,15 +45,29 @@ class ContactForm(BaseModel):
 @app.post("/video-tools")
 async def process_video(video_data: VideoURL):
     """
-    Process a YouTube video to extract transcript, generate summary, and create a blog post.
+    Process a YouTube video to extract transcript, generate summary, and create a blog post using Gemini AI.
     """
     try:
-        # In a real implementation, this would call services to process the video
-        # For demo purposes, we're returning mock data
+        # Extract video metadata (mock function for now)
+        metadata = await extract_video_metadata(video_data.url)
+        
+        # In a real implementation, you might obtain an initial transcript via YouTube's API
+        # or a third-party service, then enhance it with Gemini
+        mock_video_content = f"Video title: {metadata['title']}\nChannel: {metadata['channel']}\nDescription: {metadata['description']}"
+        
+        # Generate transcript using Gemini
+        transcript = await generate_transcript(mock_video_content)
+        
+        # Generate summary using Gemini
+        summary = await generate_summary(transcript)
+        
+        # Generate blog post using Gemini
+        blogpost = await generate_blog_post(transcript, metadata["title"])
+        
         return {
-            "transcript": "This is a simulated transcript of the YouTube video...",
-            "summary": "This is a simulated summary of the YouTube video...",
-            "blogpost": "# Video Title: How to Grow Your YouTube Channel\n\n## Introduction\nGrowing a YouTube channel requires strategy..."
+            "transcript": transcript,
+            "summary": summary,
+            "blogpost": blogpost
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error processing video: {str(e)}")

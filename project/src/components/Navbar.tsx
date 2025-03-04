@@ -10,7 +10,8 @@ import {
   PenTool, 
   Lightbulb,
   Info, 
-  Mail 
+  Mail,
+  LifeBuoy 
 } from 'lucide-react';
 
 const Navbar = () => {
@@ -119,6 +120,16 @@ const Navbar = () => {
             </Link>
             
             <Link 
+              to="/support" 
+              className={`flex items-center space-x-2 py-2 px-3 rounded-full hover:bg-red-500/20 transition-all duration-300 ${
+                isActive('/support') ? 'bg-red-500/30 font-medium' : 'text-red-50'
+              }`}
+            >
+              <LifeBuoy className="h-5 w-5" />
+              <span>Support</span>
+            </Link>
+
+            <Link 
               to="/contact" 
               className={`flex items-center space-x-2 py-2 px-3 rounded-full hover:bg-red-500/20 transition-all duration-300 ${
                 isActive('/contact') ? 'bg-red-500/30 font-medium' : 'text-red-50'
@@ -154,7 +165,9 @@ const Navbar = () => {
               { path: '/content-creation', icon: <PenTool size={20} />, label: 'Content Creation' },
               { path: '/idea-generator', icon: <Lightbulb size={20} />, label: 'Idea Generator' },
               { path: '/about', icon: <Info size={20} />, label: 'About' },
+              { path: '/support', icon: <LifeBuoy size={20} />, label: 'Support' },
               { path: '/contact', icon: <Mail size={20} />, label: 'Contact' },
+              
             ].map((item, index) => (
               <Link
                 key={item.path}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, MessageSquare, Send, MapPin, Phone } from 'lucide-react';
+import { Mail, MessageSquare, Send, MapPin, Phone, Linkedin, Calendar, BookOpen, Github } from 'lucide-react';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -172,8 +172,9 @@ const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="font-medium text-gray-900">Email</h3>
-                  <p className="text-gray-600">support@ytubetools.com</p>
-                  <p className="text-gray-600">info@ytubetools.com</p>
+                  <a href="mailto:yash.kavaiya3@gmail.com" className="text-gray-600 hover:text-red-600">
+                    yash.kavaiya3@gmail.com
+                  </a>
                 </div>
               </div>
               
@@ -184,9 +185,9 @@ const Contact: React.FC = () => {
                 <div>
                   <h3 className="font-medium text-gray-900">Address</h3>
                   <p className="text-gray-600">
-                    123 Creator Avenue<br />
-                    San Francisco, CA 94103<br />
-                    United States
+                    Hinjawadi Phase1<br />
+                    Pune, 410057<br />
+                    India
                   </p>
                 </div>
               </div>
@@ -197,8 +198,52 @@ const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="font-medium text-gray-900">Phone</h3>
-                  <p className="text-gray-600">+1 (555) 123-4567</p>
+                  <a href="tel:+919586551131" className="text-gray-600 hover:text-green-600">
+                    +91 9586551131
+                  </a>
                 </div>
+              </div>
+
+              <div className="flex flex-wrap gap-4 mt-6">
+                <a 
+                  href="https://www.linkedin.com/in/yashkavaiya/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-2 bg-blue-50 hover:bg-blue-100 text-blue-600 px-4 py-2 rounded-lg transition-colors"
+                >
+                  <Linkedin className="h-5 w-5" />
+                  <span>LinkedIn</span>
+                </a>
+
+                <a 
+                  href="https://topmate.io/yash_kavaiya" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-2 bg-purple-50 hover:bg-purple-100 text-purple-600 px-4 py-2 rounded-lg transition-colors"
+                >
+                  <Calendar className="h-5 w-5" />
+                  <span>Book Appointment</span>
+                </a>
+
+                <a 
+                  href="https://medium.com/@yash.kavaiya3" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-2 bg-gray-50 hover:bg-gray-100 text-gray-600 px-4 py-2 rounded-lg transition-colors"
+                >
+                  <BookOpen className="h-5 w-5" />
+                  <span>Medium</span>
+                </a>
+
+                <a 
+                  href="https://github.com/Yash-Kavaiya" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-2 bg-gray-800 hover:bg-gray-900 text-white px-4 py-2 rounded-lg transition-colors"
+                >
+                  <Github className="h-5 w-5" />
+                  <span>GitHub</span>
+                </a>
               </div>
             </div>
           </div>

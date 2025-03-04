@@ -11,7 +11,8 @@ import IdeaGenerator from './pages/IdeaGenerator';
 import Contact from './pages/Contact';
 import About from './pages/About';
 import { Youtube } from 'lucide-react';
-
+import SupportBanner from './components/SupportBanner';
+import Support from './pages/Support';
 // Animation variants for page transitions
 const pageVariants = {
   initial: {
@@ -57,6 +58,7 @@ const AnimatedRoutes = () => {
           <Route path="/idea-generator" element={<IdeaGenerator />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
+          <Route path="/support" element={<Support />} />
         </Routes>
       </motion.div>
     </AnimatePresence>
