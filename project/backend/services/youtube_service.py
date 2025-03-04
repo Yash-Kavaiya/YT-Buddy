@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
-# Optional: Configure YouTube API key
+# Configure YouTube API key
 YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
 
 class YouTubeService:
@@ -15,15 +15,7 @@ class YouTubeService:
     
     @staticmethod
     def extract_video_id(url: str) -> Optional[str]:
-        """
-        Extract the video ID from various YouTube URL formats.
-        
-        Args:
-            url: YouTube URL
-            
-        Returns:
-            Video ID or None if not found
-        """
+        """Extract video ID from various YouTube URL formats"""
         patterns = [
             r'(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/v\/|youtube\.com\/e\/|youtube\.com\/user\/\S+\/\S+\/|youtube\.com\/\S+\/\S+\/\S+|youtube\.com\/watch\?(?:\S+&)*v=|youtube\.com\/\S+\/\S+|youtu\.be\/)([^"&?\/\s]{11})',
             r'youtube\.com\/shorts\/([^"&?\/\s]{11})'
@@ -38,17 +30,8 @@ class YouTubeService:
     
     @staticmethod
     async def get_video_metadata(video_id: str) -> Dict[str, Any]:
-        """
-        Get video metadata from YouTube API.
-        
-        Args:
-            video_id: YouTube video ID
-            
-        Returns:
-            Dictionary containing video metadata
-        """
+        """Get video metadata from YouTube API"""
         if not YOUTUBE_API_KEY:
-            # Fallback to mock data if no API key is available
             return {
                 "title": f"Video {video_id}",
                 "channel": "Unknown Creator",
@@ -56,7 +39,6 @@ class YouTubeService:
                 "description": "No description available without YouTube API key.",
             }
         
-        # YouTube API v3 endpoint for video details
         url = f"https://www.googleapis.com/youtube/v3/videos?id={video_id}&key={YOUTUBE_API_KEY}&part=snippet,contentDetails,statistics"
         
         async with httpx.AsyncClient() as client:
@@ -85,43 +67,17 @@ class YouTubeService:
     
     @staticmethod
     async def get_video_captions(video_id: str) -> Optional[str]:
-        """
-        Get video captions/transcript.
-        In a production environment, you would use YouTube's captions API,
-        or a third-party service like youtube-transcript-api.
-        
-        Args:
-            video_id: YouTube video ID
-            
-        Returns:
-            Transcript text or None if not available
-        """
-        # This is a placeholder. In a real implementation, you would:
-        # 1. Use YouTube API or a third-party library to get captions
-        # 2. Process and format the captions
-        
-        # For now, we'll return a mock response
+        """Get video captions (placeholder implementation)"""
         return f"This is a simulated transcript for video {video_id}."
     
     @staticmethod
     async def process_video_url(url: str) -> Tuple[Dict[str, Any], Optional[str]]:
-        """
-        Process a YouTube URL to extract metadata and transcript.
-        
-        Args:
-            url: YouTube video URL
-            
-        Returns:
-            Tuple of (metadata dict, transcript text)
-        """
+        """Process a YouTube URL to extract metadata and transcript"""
         video_id = YouTubeService.extract_video_id(url)
         if not video_id:
             raise ValueError(f"Could not extract video ID from URL: {url}")
         
-        # Get video metadata
         metadata = await YouTubeService.get_video_metadata(video_id)
-        
-        # Get video transcript
         transcript = await YouTubeService.get_video_captions(video_id)
         
         return metadata, transcript
